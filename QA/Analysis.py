@@ -1,5 +1,5 @@
 # from MainDecay import main
-from DecayCompl import main
+from decayCompl import main
 from histograms import Histograms, Calibracion, NormalityTest, WRST
 
 # Figure selection
