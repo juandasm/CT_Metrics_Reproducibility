@@ -7,4 +7,6 @@ _Currently under development_
 
 This package uses reference segmentations and images for the CIRS electron density phantom, therefore new images added to the DDBB are registered and resampled to the reference, so that is not necessary dedicated segmentations for every image. The package supplies the reference images and segmentations, although the user can freely change it. 
 
+The required structure for the DDBB is detailed below.
+
 ![DDBB structure](images/ddbb_diagram.png)
