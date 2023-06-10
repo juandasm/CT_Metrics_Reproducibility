@@ -1,11 +1,13 @@
 # Quality_Assurance
 
-This package perfroms the Quality Assurance of CT volumes. It evaluates three different capacities from the CT: CT number calibration, edge detection and the calculation of radiomic features.
+This package can perform the Quality Assurance of different CT images. It evaluates three different capacities from the CT: CT number calibration, edge detection and the calculation of radiomic features.
 
 ### Version:
 _Currently under development_
 
-This package uses reference segmentations and images for the CIRS electron density phantom, therefore new images added to the DDBB are registered and resampled to the reference, so that is not necessary dedicated segmentations for every image. The package supplies the reference images and segmentations, although the user can freely change it. 
+This package can automatically perform QA for different CT volumes based on reference segmentations. It rigidly registers the referenece image (the one were the reference segmentations were taken) to the CT image to analyze. The result is saved in a transformation matrix that is later applied to the reference segmentations. An image of the workflow of the program is shown below.
+
+
 
 The required structure for the DDBB is detailed below.
 
