@@ -9,7 +9,7 @@ This package can automatically perform QA for different CT volumes based on refe
 
 ![Software workflow](images/workflow.png)
 
-The required structure for the DDBB is detailed below.
+The required structure for the DDBB is detailed below. Letter in brackets is requiered by the software to read the folder. _(It can be changed in the source code if other letters are desired)_. Reference segmentations should be stored in the different segmentations folders. 
 
 ![DDBB structure](images/ddbb_diagram.png)
 
