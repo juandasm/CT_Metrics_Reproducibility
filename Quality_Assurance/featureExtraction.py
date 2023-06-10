@@ -1,8 +1,11 @@
 from utilities import getSUVMetricP, getPercentInactive, getEccentricity, EstructuringElementDisk, volumeDilation, volumeErosion
 from radiomics import featureextractor
+from RandRauto import Register
 from skimage.measure import label
 import pandas as pd
 import numpy as np
+import nrrd
+import os
 
 def doCalibration(rawCT, metaCT, GTV, protocol, mask):
 
@@ -30,7 +33,15 @@ def doCalibration(rawCT, metaCT, GTV, protocol, mask):
 
     return GTV, ParametersCT
 
-def doRadiomics(pathCT, rawCT, pathMask, metaCT, GTV, protocol, mask):
+def doRadiomics(pathCT, rawCT, metaCT, protocol, GTV, pathFixed, pathMoving, pathSegmentation):
+
+    mask, pathMask_tmp = Register(pathFixed, pathMoving, pathSegmentation, 1)
+    pathMask = os.path.join(pathMask_tmp.name, 'mask.nrrd')
+
+    # Prueba tamaño
+    testMask, testMeta = nrrd.read(pathMask)
+    print(np.shape(testMask))
+    print(np.shape(rawCT))
 
     HUmax, HUmean, HUmin, HUsd, range, HUmedian, cov, HUpeak, aucCSH = getSUVMetricP(rawCT, mask) 
     
@@ -203,6 +214,8 @@ def doRadiomics(pathCT, rawCT, pathMask, metaCT, GTV, protocol, mask):
     # qngtdmBusyness = dfEqHist.loc['original_ngtdm_Busyness']
     # qngtdmComplexity = dfEqHist.loc['original_ngtdm_Complexity']
     # qngtdmStrength = dfEqHist.loc['original_ngtdm_Strength']
+
+    pathMask_tmp.cleanup()
 
     return GTV, radiomics
     
