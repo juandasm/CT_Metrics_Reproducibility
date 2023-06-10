@@ -1,16 +1,12 @@
 from featureExtraction import doCalibration, doRadiomics, doEdges
+from RandRauto import Register
 import pandas as pd
 import numpy as np
 import nrrd
 import glob
 import os
 
-# Definition of data and saving paths
-
-pathSave = '/Users/juansaboridomoral/Desktop/'
-pathData = '/Volumes/T7/Máster/TFM/Data'
-
-def Main(pathSave, pathData, position, flag):
+def Main(pathSave, pathData, position, flag, pathReference):
 
     if position == 'Center':
         idPosition = 'C'
@@ -37,7 +33,6 @@ def Main(pathSave, pathData, position, flag):
                     currDir = os.path.join(pathTypes, type)
                     pathProtocols = currDir
                     print('Current image type ' + nameType)
-                    currDir = os.path.join(pathProtocols, 'Output_R&R')
                     os.chdir(currDir)
                     pathProtocolsRyR = currDir
                     dirProtocols = os.listdir(pathProtocolsRyR)
@@ -70,7 +65,8 @@ def Main(pathSave, pathData, position, flag):
                                     for GTV in currGTVs:
                                         os.chdir(currPathGTV)
                                         print('Current Segmentation: ' + GTV)
-                                        mask, meta_mask = nrrd.read(GTV)
+                                        # mask, meta_mask = nrrd.read(GTV)
+                                        mask = Register(os.path.join(currPathCT, CTnrrd), pathReference, GTV)
                                         contour, calibration = doCalibration(rawCT, metaCT, GTV, nameProtocol, mask)
                                         listCalibration.append(calibration)
                                         listContours.append(contour)
@@ -105,7 +101,8 @@ def Main(pathSave, pathData, position, flag):
                                     for GTV in currGTVs:
                                         os.chdir(currPathGTV)
                                         print('Current Segmentation: ' + GTV)
-                                        mask, meta_mask = nrrd.read(GTV)
+                                        # mask, meta_mask = nrrd.read(GTV)
+                                        mask = Register(os.path.join(currPathCT, CTnrrd), pathReference, GTV)
                                         contour, edgesDicc = doEdges(rawCT, metaCT, GTV, nameProtocol, mask, counter)
                                         listEdges.append(edgesDicc)
                                         listContours.append(contour)
@@ -141,9 +138,9 @@ def Main(pathSave, pathData, position, flag):
                                     for GTV in currGTVs:
                                         os.chdir(currPathGTV)
                                         print('Current Segmentation: ' + GTV)
-                                        mask, meta_mask = nrrd.read(GTV)
-                                        pathMask = os.path.join(currPathGTV, GTV)
-                                        contour, radiomicsDicc = doRadiomics(pathCT, rawCT, pathMask, meta_mask, GTV, nameProtocol, mask)
+                                        # mask, meta_mask = nrrd.read(GTV)
+                                        # pathMask = os.path.join(currPathGTV, GTV)
+                                        contour, radiomicsDicc = doRadiomics(pathCT, rawCT, metaCT, nameProtocol, GTV, os.path.join(currPathCT, CTnrrd), pathReference, GTV)
                                         listRadiomics.append(radiomicsDicc)
                                         listContours.append(contour)
                                         counter = counter + 1
