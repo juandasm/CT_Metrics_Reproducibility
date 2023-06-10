@@ -15,16 +15,17 @@ The required structure for the DDBB is detailed below.
 
 ### QA.py
 
-This file executes the Quality Assurance program. It will automatically check if new images have been added, and the will ask you to register them to the reference images. Once registered, the user can choose which part of the analysys to perform. The result is saved in a .xlsx file.
+This file executes the Quality Assurance program. Instructions appearing in console should be followed. The software will ask for the DDBB path, position of the phantom, the desired metrics, the path to save the results and the reference image. 
 
 ### Analysis.py
 
-This file is intended to facilitate the user the analysis of the results obtained from _QA.py_. _(All features haven't been added yet)_
+This file is intended to facilitate the user the analysis of the results obtained from _QA.py_. _(Still under development, all features haven't been added yet, some may not work with other phantoms)_
 
 ## Installation
 
-This package was developed in Python 3.7, and all the necessary libraries are detailed in the file requirements.txt. All this libraries can be installed with pip by:
+This package was developed using Python 3.7, and all the necessary libraries are detailed in the file requirements.txt. All this libraries can be installed with pip by:
 
 ```
 pip install -r requirements.txt
 ``` 
+So far, it has only been possible to test the software with two different phantoms: Electron Density Phantom (CIRS) and Cheese Phantom (Accuray). It should be remarked that the phantom tested should not have different components that rotate form each other, which could lead to the rigid registration failing. 
