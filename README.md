@@ -7,7 +7,7 @@ _Currently under development_
 
 This package can automatically perform QA for different CT volumes based on reference segmentations. It rigidly registers the referenece image (the one were the reference segmentations were taken) to the CT image to analyze. The result is saved in a transformation matrix that is later applied to the reference segmentations. An image of the workflow of the program is shown below.
 
-
+![Software workflow](images/workflow.pdf)
 
 The required structure for the DDBB is detailed below.
 
